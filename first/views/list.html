@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>list</h1>
+<div id="content">
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+<script>
+    function init() {
+        $.get('/api/user/all',{},function (resp) {
+            console.log(resp)
+            var content = '<ul>';
+            for (var i = 0; i < resp.length; i++) {
+                var t = '';
+                t+='<li><b>姓名:</b>'+resp[i].name+'<b> 账号:</b> '+resp[i].num+'<b> 头像</b><img src="'+resp[i].logo+'" alt="" width="88px"> <a href="javascript:del('+resp[i].id+')">删除</a> <a href="edit?id='+resp[i].id+'">编辑</a></li>';
+                content+=t;
+            }
+            content+='</ul>';
+            $('#content').html(content)
+        })
+    }
+
+    function del(id) {
+        $.post('/api/user/del',{id:id},function (resp) {
+            console.log(resp)
+        })
+    }
+
+    function edit(id) {
+
+    }
+    $(function () {
+        init();
+    })
+</script>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>edit</title>
+    <script src="/res/js/jquery.min.js"></script>
+</head>
+<body>
+<h1>edit</h1>
+<form id="form">
+    <input id="id" name="id" type="hidden"></input>
+    <input id="logo" name="logo" placeholder="logo"></input>
+    <input id="name" name="name" placeholder="name"></input>
+    <input id="num" name="num" placeholder="id"></input>
+    <input id="age" name="age" placeholder="age"></input>
+    <input id="password" name="password" placeholder="password"></input>
+
+</form>
+<button  onclick="return edit()">保存</button>
+<div id="content"></div>
+
+<script>
+
+        function edit() {
+        var data= $('#form').serialize()
+        $.post('/api/user/update',data,function (resp) {
+            console.log(resp)
+        })
+        return false;
+    }
+    function  init() {
+        var id= location.search.replace('?id=',"");
+        $('#id').val(id)
+        $.get('/api/user/one', {"id": id}, function (resp) {
+            console.log(resp)
+            $('#id').val(resp.id)
+            $('#name').val(resp.name)
+            $('#num').val(resp.num)
+            $('#password').val(resp.password)
+            $('#logo').val(resp.logo)
+            $('#age').val(resp.age)
+        })
+
+    }
+    $(function(){
+        init()
+    });
+</script>
+</body>
+</html>

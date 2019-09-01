@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>userone</title>
+</head>
+<body>
+<p><input id="id" placeholder="id"><button onclick="getData()">查询</button></p>
+<div id="content">
+
+</div>
+<script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+<script>
+    function getData() {
+        $.get('/api/user/one',{id:$("#id").val()},function (resp) {
+            console.log(resp)
+            var conent='<div>姓名:'+resp.name+',头像:<img src="'+resp.logo+'" width="88px"></img></div>';
+            $('#content').html(conent)
+        })
+    }
+
+</script>
+</body>
+</html>
